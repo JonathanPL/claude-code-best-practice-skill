@@ -1,0 +1,20 @@
+{
+  "repo": "shanraisshan/claude-code-best-practice",
+  "ref": "main",
+  "sha": "0bbb72f00514e9a8bf16bf8a1de04a5695e8f904",
+  "commit_date": "2026-11-22T06:33:27Z",
+  "files": 51,
+  "excluded": [
+    "orchestration-workflow/output.md",
+    "reports/learning-journey-weather-reporter-redesign.md",
+    "tutorial/day0/linux.md",
+    "tutorial/day0/mac.md",
+    "tutorial/day0/windows.md"
+  ],
+  "patches": [
+    {
+      "file": "best-practice/claude-settings.md",
+      "why": "Example of `permissions.deny`. The sequence .env, secrets, curl matches the secret-exfiltration pattern of Paperclip's audit (a false positive: the example forbids those actions). The order of a deny list does not matter, so curl goes first."
+    }
+  ]
+}

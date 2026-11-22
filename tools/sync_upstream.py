@@ -107,7 +107,7 @@ SUMMARIES = {
     "references/development-workflows/rpi/claude-config/agents/ux-designer.md": "Agente UX: brief con flujos, estados y anotaciones.",
     "references/development-workflows/rpi/claude-config/agents/senior-software-engineer.md": "Agente ingeniero senior: pasos pequeños y reversibles, con tests y PRs claros.",
     "references/development-workflows/rpi/claude-config/agents/code-reviewer.md": "Agente revisor: corrección, claridad, seguridad y mantenibilidad.",
-    "references/development-workflows/rpi/claude-config/agents/technical-cto-advisor.md": "Agente CTO: evalúa decisiones técnicas frente a principios y estándares de ingeniería.",
+    "references/development-workflows/rpi/claude-config/agents/technical-cto-advisor.md": "Agente CTO: contrasta las decisiones técnicas con los principios y estándares de ingeniería.",
     "references/development-workflows/rpi/claude-config/agents/constitutional-validator.md": "Agente que valida propuestas frente a los principios («constitución») del proyecto.",
     "references/development-workflows/rpi/claude-config/agents/documentation-analyst-writer.md": "Agente que analiza la documentación existente y escribe docs según las normas del proyecto.",
     "references/reports/claude-agent-command-skill.md": "Agents vs commands vs skills: cuándo usar cada uno.",
@@ -159,14 +159,16 @@ homepage: https://github.com/{UPSTREAM}
 """
 
 # --- Paperclip audit (copied from /app/server/src/services/company-skills.ts) -----------
+# re.ASCII: in JavaScript (without the u flag) \b only counts ASCII letters, so «evalúa»
+# contains the word «eval» for Paperclip. Without re.ASCII, Python would not see it.
 REMOTE_EXEC_RE = re.compile(
     r"\b(?:curl|wget)\b[\s\S]{0,160}\|\s*(?:sh|bash)|\b(?:bash|sh)\s+-c\b|\beval\b|\bpython\s+-c\b|\bnode\s+-e\b",
-    re.I,
+    re.I | re.ASCII,
 )
 SECRET_EXFIL_RE = re.compile(
     r"\b(?:cat|printenv|env|grep)\b[\s\S]{0,160}(?:\.aws\/credentials|\.ssh\/|\.npmrc|id_rsa|OPENAI_API_KEY|"
     r"ANTHROPIC_API_KEY|API_KEY|TOKEN|SECRET)[\s\S]{0,160}\b(?:curl|wget|nc|netcat|scp)\b",
-    re.I,
+    re.I | re.ASCII,
 )
 
 # --- Content transformations ------------------------------------------------------------
